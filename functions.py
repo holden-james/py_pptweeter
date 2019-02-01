@@ -1,5 +1,9 @@
+import twython
 import requests
 import json
+import random
+import time
+import keys
 
 
 def get_team_name(teamid):
@@ -38,3 +42,32 @@ def check_power_play(teamid, team):
     elif team in away:
         on_power_play = result["teams"]["away"]["powerPlay"]
         return on_power_play
+
+
+def twitter_loop(team, teamid):
+    twitter = twython.Twython(
+        keys.consumer_key,
+        keys.consumer_secret,
+        keys.access_token,
+        keys.access_token_secret
+    )
+
+    while not check_power_play(teamid, get_team_name(teamid)):
+        print(f"The {team} are not on a power play...")
+        time.sleep(15)
+    else:
+        tweet_options = [
+            "@AdamSKutner Go Knights Go! #AdamKutnerPowerPlay",
+            "@AdamSKutner VGK Power Play! #AdamKutnerPowerPlay",
+            "@AdamSKutner I believe! #AdamKutnerPowerPlay",
+            "@AdamSKutner Let's get that power play goal! #AdamKutnerPowerPlay",
+            "@AdamSKutner Let's get it! #AdamKutnerPowerPlay",
+            "@AdamSKutner Powerrrrr Playyyyyy! #AdamKutnerPowerPlay"
+        ]
+        tweet_number = random.randint(0, len(tweet_options))
+        message = tweet_options[tweet_number]
+        print("Tweeting this message: " + message)
+        twitter.update_status(status=message)
+        print(f"The {team} are on a power play!")
+        print("Waiting five minutes to start the loop again...")
+        time.sleep(300)
