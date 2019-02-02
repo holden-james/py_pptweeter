@@ -2,6 +2,10 @@
 Tweet something whenever your favorite team goes on the Power Play!
 
 Requires Twython
+```
+pip3 install Twython
+```
+
 
 File keys.py must be created in root folder. Define the following variables in keys.py:
 ```
