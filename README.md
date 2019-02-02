@@ -7,7 +7,7 @@ pip3 install Twython
 ```
 
 
-File keys.py must be created in root folder. Define the following variables in keys.py:
+File keys.py must be created in root folder. Define the following variables in **keys.py**:
 ```
 consumer_key = 'KEY'
 consumer_secret = 'SECRET'
