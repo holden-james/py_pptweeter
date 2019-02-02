@@ -6,12 +6,18 @@ import time
 import keys
 
 
+# Given the team's ID, search the NHL's API to get the team's name and return it.
+
+
 def get_team_name(teamid):
     api = f"https://statsapi.web.nhl.com/api/v1/teams/{teamid}"
     request = requests.get(url=api)
     result = json.loads(request.text)
     team_name = result["teams"][0]["name"]
     return team_name
+
+# Given the team's ID, find it the team is playing a game today.
+# If the team is playing today, return the game's ID from the NHL API.
 
 
 def check_if_playing(teamid):
@@ -25,6 +31,9 @@ def check_if_playing(teamid):
         print(f"The {team} are not playing today...")
         quit()
     return games_today
+
+# Using the game's ID, check if the team is on a a power play.
+# Checks are run against the NHL's API for the live game.
 
 
 def check_power_play(teamid, team):
@@ -42,6 +51,8 @@ def check_power_play(teamid, team):
     elif team in away:
         on_power_play = result["teams"]["away"]["powerPlay"]
         return on_power_play
+
+#
 
 
 def twitter_loop(team, teamid):
