@@ -82,3 +82,4 @@ def twitter_loop(team, teamid):
         print(f"The {team} are on a power play!")
         print("Waiting five minutes to start the loop again...")
         time.sleep(300)
+        twitter_loop()
