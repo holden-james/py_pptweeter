@@ -75,7 +75,7 @@ def twitter_loop(team, teamid):
             "@AdamSKutner Let's get it! #AdamKutnerPowerPlay",
             "@AdamSKutner Powerrrrr Playyyyyy! #AdamKutnerPowerPlay"
         ]
-        tweet_number = random.randint(0, len(tweet_options))
+        tweet_number = random.randint(0, (len(tweet_options))-1)
         message = tweet_options[tweet_number]
         print("Tweeting this message: " + message)
         twitter.update_status(status=message)
