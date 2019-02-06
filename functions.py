@@ -5,30 +5,27 @@ import random
 import time
 import keys
 
+# Given the team's name and link to the NHL api, find the team's ID.
 
-# Given the team's ID, search the NHL's API to get the team's name and return it.
 
-
-def get_team_name(teamid):
-    api = f"https://statsapi.web.nhl.com/api/v1/teams/{teamid}"
+def get_team_id(team, api):
     request = requests.get(url=api)
     result = json.loads(request.text)
-    team_name = result["teams"][0]["name"]
-    return team_name
 
-# Given the team's ID, find it the team is playing a game today.
-# If the team is playing today, return the game's ID from the NHL API.
+    index = 0
+    while result['teams'][index]['name'] != team:
+        index += 1
+
+    return result['teams'][index]['id']
 
 
-def check_if_playing(teamid):
-    team = get_team_name(teamid)
-    api = f"https://statsapi.web.nhl.com/api/v1/schedule?teamId={teamid}"
+def check_if_playing(team, api):
     request = requests.get(url=api)
     result = json.loads(request.text)
     try:
         games_today = result["dates"][0]["games"][0]["gamePk"]
     except IndexError:
-        print(f"The {team} are not playing today...")
+        print(f"The {team} are not playing a game today... Goodbye.")
         quit()
     return games_today
 
