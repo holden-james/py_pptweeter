@@ -1,6 +1,6 @@
 keys.py
-
 .idea/
+tweets.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
