@@ -16,9 +16,11 @@ def twitter_loop(team, api):
     )
 
     spinner = Spinner()
+    spinner.stop()
 
     print(f"Waiting for {team} to go on a Power Play...", end='')
     spinner.start()
+    print("\n")
 
     while not functions.check_power_play(team, api):
         time.sleep(10)
@@ -41,8 +43,11 @@ def twitter_loop(team, api):
         print("Tweeting this message: " + tweet)
 
         twitter.update_status(status=tweet)
+
+        print("Waiting five minutes before checking for another power play...")
+        spinner.start()
         time.sleep(300)
-        twitter_loop(team)
+        twitter_loop(team, api)
 
 
 # Add arguments to be passed to the script when running it.
