@@ -14,9 +14,17 @@ consumer_secret = 'SECRET'
 access_token = 'TOKEN'
 access_token_secret = 'SECRET'
 ```
-TODO:
 
-- Allow for team name to be passed in via command line option.
-- Allow for text file of pre-made tweets to be passed in via command line option.
+How to run the script:
+```
+python pptweeter.py "NHL TEAM NAME"
+```
 
-The above should make the program slimmer and more useable for non Vegas Golden Knights fans.
+NHL Team Name needs to be the full team (e.g. "Vegas Golden Knights").
+
+By default the script will post one of two generic tweets when the team goes on a power play. Alternatively, point to a .txt file containing tweets using the following:
+```
+python pptweeter.py "NHL TEAM NAME" -tweets location\of\tweets.txt
+```
+
+Make sure each tweet is on a new line in the .txt.
