@@ -7,7 +7,7 @@ import functions
 from spinner import Spinner
 
 
-def twitter_loop(team):
+def twitter_loop(team, api):
     twitter = Twython(
         keys.consumer_key,
         keys.consumer_secret,
@@ -20,7 +20,7 @@ def twitter_loop(team):
     print(f"Waiting for {team} to go on a Power Play...", end='')
     spinner.start()
 
-    while not functions.check_power_play(nhl_team, nhl_live_api):
+    while not functions.check_power_play(team, api):
         time.sleep(10)
     else:
         # Check if a text file containing tweets was passed in.
@@ -28,7 +28,7 @@ def twitter_loop(team):
         # Each lines is split into a list.
 
         if args.get('tweets') is None:
-            tweets = [f"{nhl_team} are on a power play!", f"I hope the {nhl_team} score on this power play!"]
+            tweets = [f"{team} are on a power play!", f"I hope the {team} score on this power play!"]
         else:
             with open(args.get('tweets'), 'r') as tweets:
                 tweets = tweets.read().splitlines()
@@ -42,7 +42,7 @@ def twitter_loop(team):
 
         twitter.update_status(status=tweet)
         time.sleep(300)
-        twitter_loop()
+        twitter_loop(team)
 
 
 # Add arguments to be passed to the script when running it.
@@ -77,6 +77,5 @@ nhl_games_api = f"https://statsapi.web.nhl.com/api/v1/schedule?teamId={nhl_team_
 nhl_game_id = functions.check_if_playing(nhl_team, nhl_games_api)
 
 nhl_live_api = f"https://statsapi.web.nhl.com/api/v1/game/{nhl_game_id}/linescore"
-functions.check_power_play(nhl_team, nhl_live_api)
 
-twitter_loop(nhl_team)
+twitter_loop(nhl_team, nhl_live_api)
