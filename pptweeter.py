@@ -44,6 +44,8 @@ def twitter_loop(team, api):
 
         twitter.update_status(status=tweet)
 
+        # TODO: Need to write logic to detect when the team ends the power play. API should tell us this.
+        # Wait five minutes to start the loop over again.
         print("Waiting five minutes before checking for another power play...")
         spinner.start()
         time.sleep(300)
@@ -83,4 +85,5 @@ nhl_game_id = functions.check_if_playing(nhl_team, nhl_games_api)
 
 nhl_live_api = f"https://statsapi.web.nhl.com/api/v1/game/{nhl_game_id}/linescore"
 
+# Star the main loop.
 twitter_loop(nhl_team, nhl_live_api)
