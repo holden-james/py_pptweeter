@@ -1,10 +1,10 @@
 from twython import Twython
+from spinner import Spinner
 import argparse
 import random
 import time
 import keys
 import functions
-from spinner import Spinner
 
 
 def twitter_loop(team, api):
