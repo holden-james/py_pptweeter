@@ -1,10 +1,8 @@
 from twython import Twython
 import argparse
-import random
 import time
 import keys
 import functions
-
 
 def twitter_loop(team, api):
     twitter = Twython(
@@ -30,7 +28,9 @@ def twitter_loop(team, api):
                 tweets = tweets.read().splitlines()
 
         # Choose a random number to select a random tweet.
-        tweet = tweets[random.randint(0, (len(tweets)) - 1)]
+        # TODO: Figure out a way to make sure a duplicate tweet isn't selected.
+        
+        tweet = functions.choose_tweet(tweets)
 
         print(f"The {team} are on a power play!")
         print("Tweeting this message: " + tweet)
