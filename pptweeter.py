@@ -37,7 +37,7 @@ def twitter_loop(team, api):
         # Once the power play is over, the rest of the script continues.
         print("Waiting for the f{team} to no longer be on the power play...")
         while functions.check_power_play(team, api):
-            pass
+            time.sleep(10)
 
 
 # Add arguments to be passed to the script when running it.
