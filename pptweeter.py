@@ -20,28 +20,24 @@ def twitter_loop(team, api):
         # Check if a text file containing tweets was passed in.
         # If no file was passed in, a default string is used.
         # Each lines is split into a list.
-
         if args.get('tweets') is None:
             tweets = [f"{team} are on a power play!", f"I hope the {team} score on this power play!"]
         else:
             with open(args.get('tweets'), 'r') as tweets:
                 tweets = tweets.read().splitlines()
 
-        # Choose a random number to select a random tweet.
-        # TODO: Figure out a way to make sure a duplicate tweet isn't selected.
-        
+        # Select a random tweet to send.
+        # Selected tweet should never be one that was used before.
         tweet = functions.choose_tweet(tweets)
-
         print(f"The {team} are on a power play!")
         print("Tweeting this message: " + tweet)
-
         twitter.update_status(status=tweet)
 
-        # TODO: Need to write logic to detect when the team ends the power play. API should tell us this.
-        # Wait five minutes to start the loop over again.
-        print("Waiting five minutes before checking for another power play...")
-        time.sleep(300)
-        twitter_loop(team, api)
+        # Wait for the team to finish the power play.
+        # Once the power play is over, the rest of the script continues.
+        print("Waiting for the f{team} to no longer be on the power play...")
+        while functions.check_power_play(team, api):
+            pass
 
 
 # Add arguments to be passed to the script when running it.
@@ -75,6 +71,7 @@ nhl_team_id = functions.get_team_id(nhl_team, nhl_teams_api)
 nhl_games_api = f"https://statsapi.web.nhl.com/api/v1/schedule?teamId={nhl_team_id}"
 nhl_game_id = functions.check_if_playing(nhl_team, nhl_games_api)
 
+# Define the link to the NHL API for a game's live stats.
 nhl_live_api = f"https://statsapi.web.nhl.com/api/v1/game/{nhl_game_id}/linescore"
 
 # Star the main loop.
