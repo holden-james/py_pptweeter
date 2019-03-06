@@ -31,15 +31,17 @@ def twitter_loop(team, api):
         # Select a random tweet to send.
         # Selected tweet should never be one that was used before.
         tweet = functions.choose_tweet(tweets)
-        print(f"The {team} are on a power play!")
+        print(f"The {team} are on a Power Play!")
         print("Tweeting this message: " + tweet)
         twitter.update_status(status=tweet)
 
         # Wait for the team to finish the power play.
         # Once the power play is over, the rest of the script continues.
-        print("Waiting for the f{team} to no longer be on the power play...")
+        print(f"Waiting for the {team} to no longer be on the Power Play...")
         while functions.check_power_play(team, api):
             time.sleep(10)
+        
+        print(f"The {team} are no longer on the Power Play! Starting over.")
 
 
 # Add arguments to be passed to the script when running it.

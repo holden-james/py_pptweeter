@@ -50,7 +50,7 @@ def choose_tweet(tweets):
     random_number = random.randint(0, (len(tweets)) - 1)
     if random_number not in chosen_tweets:
         chosen_tweets.append(random_number)
-        tweet = tweets(random_number)
+        tweet = tweets[random_number]
         return tweet
     else:
         choose_tweet(tweets)
